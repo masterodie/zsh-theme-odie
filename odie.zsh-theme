@@ -20,16 +20,10 @@ SEPARATOR='::'
 USER=
 
 function _user() {
-  local user=`whoami`
-  if [[ "$user" != "$DEFAULT_USER" ]]; then
-    if [[ $UID == 0 ]]; then
-      name="%{$fg[red]%}%n%{$reset_color%}"
-    else
-      name="%{$fg[green]%}%n%{$reset_color%}"
-    fi
-  fi
   if [[ $UID == 0 ]]; then
     name="%{$fg[red]%}%n%{$reset_color%}"
+  else
+    name="%{$fg[green]%}%n%{$reset_color%}"
   fi
   if [[ -n $name ]]; then
     echo -n "$name"
