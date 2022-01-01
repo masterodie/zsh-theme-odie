@@ -19,10 +19,6 @@ ZSH_THEME_NODEENV_SUFFIX="]%{$reset_color%}"
 SEPARATOR='::'
 USER=
 
-function _separator() {
-  echo -n "::"
-}
-
 function _user() {
   local user=`whoami`
   if [[ "$user" != "$DEFAULT_USER" ]]; then
@@ -36,26 +32,14 @@ function _user() {
     name="%{$fg[red]%}%n%{$reset_color%}"
   fi
   if [[ -n $name ]]; then
-    echo -n "$name$(_separator)"
+    echo -n "$name"
   fi
 }
 
 function _host() {
-  show_hostname=1
-  if [ "$(ls -id /)" != "2" ]; then
-    show_hostname=0
-  fi
-  if [[ -n $SSH_CONNECTION ]]; then
-    show_hostname=0
-  fi
-  if [[ -n $container ]]; then
-    show_hostname=0
-  fi
-  if [[ $show_hostname == "0" ]]; then
-    hostname="%{$fg[cyan]%}%m%{$reset_color%}"
-  fi
+  hostname="%{$fg[cyan]%}%m%{$reset_color%}"
   if [[ -n $hostname ]]; then
-    echo -n "$hostname$(_separator)"
+    echo -n "$hostname"
   fi
 }
 
@@ -70,12 +54,18 @@ function _end() {
   echo -n " $end "
 }
 
-function _build_prompt() {
-  RETVAL=$?
+function _prompt() {
   _user
+  echo -n "@"
   _host
+  echo -n " "
   _directory
   _end
+}
+
+function _build_prompt() {
+  RETVAL=$?
+  _prompt
 }
 
 function _git_branch() {
@@ -91,6 +81,10 @@ if type "virtualenv_prompt_info" > /dev/null
 then
     echo -n '$(virtualenv_prompt_info)'
 fi
+}
+
+function _direnv_virtualenv() {
+    echo -n '$(basename $VIRTUAL_ENV)'
 }
 
 function _nodeenv() {
@@ -109,6 +103,7 @@ function _build_rprompt() {
   _git_status
   _git_branch
   _virtualenv
+  _direnv_virtualenv
   _nodeenv
   _mode
 }
