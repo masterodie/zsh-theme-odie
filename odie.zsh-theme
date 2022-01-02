@@ -74,13 +74,6 @@ then
 fi
 }
 
-function _nodeenv() {
-if type "nodeenv_prompt_info" > /dev/null
-then
-    echo -n '$(nodeenv_prompt_info)'
-fi
-}
-
 function _mode() {
   echo -n '$(vi_mode_prompt_info)'
 }
@@ -90,7 +83,6 @@ function _build_rprompt() {
   _git_status
   _git_branch
   _virtualenv
-  _nodeenv
   _mode
 }
 
