@@ -16,9 +16,6 @@ ZSH_THEME_VIRTUALENV_SUFFIX="]%{$reset_color%}"
 ZSH_THEME_NODEENV_PREFIX="%{$fg[green]%} ["
 ZSH_THEME_NODEENV_SUFFIX="]%{$reset_color%}"
 
-SEPARATOR='::'
-USER=
-
 function _user() {
   if [[ $UID == 0 ]]; then
     name="%{$fg[red]%}%n%{$reset_color%}"
