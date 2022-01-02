@@ -77,13 +77,6 @@ then
 fi
 }
 
-function _direnv_virtualenv() {
-  if [[ -z $VIRTUAL_ENV ]]
-  then
-    echo -n '$(basename $VIRTUAL_ENV)'
-  fi
-}
-
 function _nodeenv() {
 if type "nodeenv_prompt_info" > /dev/null
 then
@@ -100,7 +93,6 @@ function _build_rprompt() {
   _git_status
   _git_branch
   _virtualenv
-  _direnv_virtualenv
   _nodeenv
   _mode
 }
