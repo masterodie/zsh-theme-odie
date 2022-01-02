@@ -78,7 +78,10 @@ fi
 }
 
 function _direnv_virtualenv() {
+  if [[ ! -z $VIRTUAL_ENV ]]
+  then
     echo -n '$(basename $VIRTUAL_ENV)'
+  fi
 }
 
 function _nodeenv() {
