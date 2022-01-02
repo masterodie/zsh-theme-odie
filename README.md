@@ -8,13 +8,13 @@ The terminal used in the screenshots is gnome-terminal
 
 The Colorscheme used is [vimix-dark-laptop-doder](https://github.com/vinceliuice)
 
-![clean](screenshots/clean.md)
+![clean](screenshots/clean.png)
 
-![git clean](screenshots/git_clean.md)
+![git clean](screenshots/git_clean.png)
 
-![virtualenv clean](screenshots/venv_clean.md)
+![virtualenv clean](screenshots/venv_clean.png)
 
-![virtualenv and dirty git](screenshots/venv_clean.md)
+![virtualenv and dirty git](screenshots/venv_clean.png)
 
 ## Installation
 
