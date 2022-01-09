@@ -11,21 +11,27 @@ The terminal used in the screenshots is gnome-terminal
 The Colorscheme used is [vimix-dark-laptop-doder](https://github.com/vinceliuice)
 
 Last command was successful (exit code of 0)
+
 ![clean](screenshots/clean.png)
 
 Last command had an error (exit code not 0)
+
 ![command status](screenshots/command_status.png)
 
 Git branch info
+
 ![git clean](screenshots/git_clean.png)
 
 Python virtualenv info
+
 ![virtualenv clean](screenshots/venv_clean.png)
 
 Python virtualenv info and git with changes in repository
+
 ![virtualenv and dirty git](screenshots/venv_git_dirty.png)
 
 Vi-mode normal mode indicator
+
 ![vi-mode](screenshots/vi_mode.png)
 
 ## Installation
