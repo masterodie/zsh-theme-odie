@@ -13,77 +13,88 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭%{$reset_color%}"
 ZSH_THEME_VIRTUALENV_PREFIX="%{$fg[yellow]%} ["
 ZSH_THEME_VIRTUALENV_SUFFIX="]%{$reset_color%}"
 
-ZSH_THEME_NODEENV_PREFIX="%{$fg[green]%} ["
-ZSH_THEME_NODEENV_SUFFIX="]%{$reset_color%}"
+function _echo() {
+  # echo without trailing newline
+  echo -n "$1"
+}
+
+function _separator() {
+  separator=${1:-" "}
+  _echo "${separator}"
+}
 
 function _user() {
+  # echo the user name in red if the user is root or green for everyone else
+  user="%n"
   if [[ $UID == 0 ]]; then
-    name="%{$fg[red]%}%n%{$reset_color%}"
+    user="%{$fg[red]%}${user}%{$reset_color%}"
   else
-    name="%{$fg[green]%}%n%{$reset_color%}"
+    user="%{$fg[green]%}${user}%{$reset_color%}"
   fi
-  if [[ -n $name ]]; then
-    echo -n "$name"
-  fi
+  _echo "${user}"
 }
 
 function _host() {
-  hostname="%{$fg[cyan]%}%m%{$reset_color%}"
-  if [[ -n $hostname ]]; then
-    echo -n "$hostname"
-  fi
+  # echo hostname
+  host="%m"
+  host="%{$fg[cyan]%}${host}%{$reset_color%}"
+  _echo "${host}"
+}
+
+function _user_at_host() {
+  _user
+  _separator "@"
+  _host
 }
 
 function _directory() {
+  # echo current working directory
   directory="%1~"
-  echo -n "%{$fg[yellow]%}$directory%{$reset_color%}"
+  directory="%{$fg[yellow]%}${directory}%{$reset_color%}"
+  _echo "${directory}"
 }
 
-function _end() {
-  symbol="▸"
-  end="%(0?.%{$fg[green]%}.%{$fg[red]%})$symbol%{$reset_color%}"
-  echo -n " $end "
-}
-
-function _prompt() {
-  _user
-  echo -n "@"
-  _host
-  echo -n " "
-  _directory
-  _end
+function _exit_status() {
+  # echo a symbol in red or green depending on the exit status of the last run command
+  exit_status="▸"
+  exit_status="%(0?.%{$fg[green]%}.%{$fg[red]%})$exit_status%{$reset_color%}"
+  _echo "${exit_status}"
 }
 
 function _build_prompt() {
-  RETVAL=$?
-  _prompt
+  _user_at_host
+  _separator
+  _directory
+  _separator
+  _exit_status
+  _separator
 }
 
 function _git_branch() {
-  echo -n '$(git_prompt_info)'
+  # echo git branch info
+  _echo '$(git_prompt_info)'
 }
 
 function _git_status() {
-  echo -n '$(git_prompt_status) '
+  # echo git branch info
+  _echo '$(git_prompt_status) '
 }
 
 function _virtualenv() {
-if type "virtualenv_prompt_info" > /dev/null
-then
-    echo -n '$(virtualenv_prompt_info)'
-fi
+  # echo python virtualenv info
+  _echo '$(virtualenv_prompt_info)'
 }
 
-function _mode() {
-  echo -n '$(vi_mode_prompt_info)'
+function _vi_mode() {
+  # echo vi mode info
+  _echo '$(vi_mode_prompt_info)'
 }
 
 function _build_rprompt() {
-  RETVAL=$?
   _git_status
   _git_branch
   _virtualenv
-  _mode
+  _vi_mode
 }
 
 PROMPT="$(_build_prompt)"
