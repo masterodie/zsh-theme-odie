@@ -48,7 +48,7 @@ function _directory() {
 
 function _exit_status() {
   # echo a symbol in red or green depending on the exit status of the last run command
-  exit_status="▸ "
+  exit_status=" "
   exit_status="%(0?.%{$fg[green]%}.%{$fg[red]%})$exit_status%{$reset_color%}"
   _echo "${exit_status}"
 }
